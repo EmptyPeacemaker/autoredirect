@@ -1,0 +1,44 @@
+// ==UserScript==
+// @name         Autoredirect to uksivt.ru
+// @namespace    http://tampermonkey.net/
+// @version      1
+// @description  retirect to uksivt.ru for n seconds
+// @author       EmptyPeacemaker
+// @include      https://*/*
+// @include      http://*/*
+// @grant        none
+// @require      https://code.jquery.com/jquery-3.1.1.min.js
+// ==/UserScript==
+(function() {
+    'use strict';
+    let idleTimer = null,
+    idleState = false,
+    idleWait = 2000;
+    $(document).ready(function () {
+        $('*').bind('mousemove keydown scroll', function () {
+            clearTimeout(idleTimer);
+            if (idleState == true) {
+
+                // Что делаем, когда пользователь активировался
+                $("body").append("<p>С возвращением дружище!.</p>");
+                // Что делаем, когда пользователь активировался
+
+            }
+
+            idleState = false;
+            idleTimer = setTimeout(function () {
+                let url = "https://www.uksivt.ru/";
+                if(window.location.href!= url) window.location = url;
+                // Что делаем при бездействии юзера больше указанного времени
+                //$("body").append("<p>Уже " + idleWait / 1000 + " сек. отдыхаешь! Хватит халявить!</p>");
+                // Что делаем при бездействии юзера больше указанного времени
+
+                idleState = true;
+            }, idleWait);
+        });
+
+        // Инициализация
+        $("body").trigger("mousemove");
+
+    });
+})();
